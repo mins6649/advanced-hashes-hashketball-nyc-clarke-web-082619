@@ -1,4 +1,7 @@
 # Write your code below game_hash
+
+require "pry"
+
 def game_hash
   {
     home: {
@@ -127,3 +130,80 @@ def game_hash
 end
 
 # Write code here
+
+def all_players
+  game_hash[:home][:players].concat(game_hash[:away][:players])
+end
+
+
+def num_points_scored(name_of_player)
+  all_players.find do |player|
+    if player[:player_name] == name_of_player
+      return player[:points]
+    end
+  end
+end
+
+def shoe_size(name_of_player)
+  all_players.find do |player|
+    if player[:player_name] == name_of_player
+      return player[:shoe]
+    end
+  end
+end
+
+
+# def both_teams
+#   game_hash[:home].concat(game_hash[:away])
+# end
+
+def team_colors(name_of_team)
+  if game_hash[:home][:team_name] == name_of_team
+    return game_hash[:home][:colors]
+  else return game_hash[:away][:colors]
+  end
+end
+
+def team_names 
+  game_hash[:home][:team_name].concat("  " + game_hash[:away][:team_name]).split("  ")
+end
+
+def player_numbers(name_of_team)
+
+  number_of_jerseys = []
+
+  if game_hash[:home][:team_name] ==  name_of_team
+    game_hash[:home][:players].each do |info|
+      number_of_jerseys.push(info[:number])
+    end
+  else game_hash[:away][:players].each do |info|
+    number_of_jerseys.push(info[:number])
+  end
+end
+  return number_of_jerseys
+end
+
+def player_stats(name_of_player)
+  all_players.find do |player_stat|
+    if player_stat[:player_name] == name_of_player
+    return player_stat
+    end
+  end
+end
+
+def big_shoe_rebounds
+max_shoe_size_player = all_players[0]
+
+  all_players.each do |player_stat|
+    if player_stat[:shoe] > max_shoe_size_player[:shoe]
+      max_shoe_size_player = player_stat
+    end
+  end
+  return max_shoe_size_player[:rebounds]
+end
+
+      
+
+
+
+
